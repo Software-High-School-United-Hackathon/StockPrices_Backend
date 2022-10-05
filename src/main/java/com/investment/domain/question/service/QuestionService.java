@@ -25,6 +25,7 @@ public class QuestionService {
                 .exam(exam)
                 .answer(request.getAnswer())
                 .rightAnswer(request.getRightAnswer())
+                .explanation(request.getExplanation())
                 .build();
 
         questionRepository.save(createdQuestion);

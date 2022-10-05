@@ -19,7 +19,7 @@ public class Question {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_exam_id")
     private Exam exam;
 
@@ -29,13 +29,14 @@ public class Question {
     @Column(nullable = false)
     private String rightAnswer;
 
-    @CreationTimestamp
-    private LocalDateTime createdAt;
+    @Column(nullable = false)
+    private String explanation;
 
     @Builder
-    public Question(String answer, String rightAnswer, Exam exam) {
+    public Question(String answer, String rightAnswer, Exam exam, String explanation) {
         this.answer = answer;
         this.rightAnswer = rightAnswer;
         this.exam = exam;
+        this.explanation = explanation;
     }
 }

@@ -1,6 +1,7 @@
 package com.investment.domain.exam.presentation;
 
 import com.investment.domain.exam.presentation.dto.request.CreateExamRequest;
+import com.investment.domain.exam.presentation.dto.response.ExamResult;
 import com.investment.domain.exam.service.ExamService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +26,8 @@ public class ExamController {
 
     @GetMapping("/result")
     @ResponseStatus(value = HttpStatus.OK)
-    @ApiOperation(value = "투자 시험 결과 조회", notes = "fastapi 서버를 통해 분석된 투자 시험 결과를 조회합니다.")
-    public void getResult(@RequestParam String id) {
-        // TODO : fastapi를 통해 분석된 투자 시험 결과를 리턴
+    @ApiOperation(value = "투자 시험 결과 조회", notes = "uuid로 투자 시험 결과를 조회합니다.")
+    public ExamResult getResult(@RequestParam String id) {
+        return examService.getResult(id);
     }
 }

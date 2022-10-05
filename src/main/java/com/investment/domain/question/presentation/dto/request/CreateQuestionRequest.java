@@ -16,11 +16,12 @@ public class CreateQuestionRequest {
     @NotEmpty
     private String examId;
 
-
-
     @NotEmpty
     private String rightAnswer;
 
     @NotEmpty
     private String answer;
+
+    @NotEmpty
+    private String explanation;
 }

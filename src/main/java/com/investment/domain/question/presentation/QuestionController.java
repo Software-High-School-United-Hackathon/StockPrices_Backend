@@ -20,6 +20,6 @@ public class QuestionController {
     @ResponseStatus(value = HttpStatus.CREATED)
     @ApiOperation(value = "질문/응답 생성", notes = "fastapi 서버를 통해서 받은 질문과 그에 대한 답변을 생성합니다.")
     public void createQuestion(@RequestBody @Valid CreateQuestionRequest request) {
-
+        questionService.createQuestion(request);
     }
 }
