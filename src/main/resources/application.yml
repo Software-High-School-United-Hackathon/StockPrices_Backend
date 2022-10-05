@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://101.101.209.184:33306/green_street?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: b1nd0108!
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      format_sql: true
+      ddl-auto: update
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
