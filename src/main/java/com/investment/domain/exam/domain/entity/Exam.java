@@ -1,5 +1,6 @@
 package com.investment.domain.exam.domain.entity;
 
+import com.investment.domain.exam.domain.type.ExamStatus;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,4 +23,14 @@ public class Exam {
 
     @Column(nullable = false)
     private int age;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(nullable = false)
+    private ExamStatus status;
+
+    public Exam(String name, int age) {
+        this.name = name;
+        this.age = age;
+        this.status = ExamStatus.PENDING;
+    }
 }

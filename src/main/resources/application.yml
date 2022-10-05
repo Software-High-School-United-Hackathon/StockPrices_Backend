@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://101.101.209.184:33306/green_street?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/green_street?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: root
-    password: b1nd0108!
+    password: P@ssw0rd
   jackson:
     property-naming-strategy: SNAKE_CASE
   jpa:
