@@ -11,6 +11,7 @@ import com.investment.domain.question.domain.repository.QuestionRepository;
 import com.investment.domain.question.presentation.dto.response.QuestionResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class ExamService {
     private final ExamRepository examRepository;
     private final QuestionRepository questionRepository;
 
+    @Transactional(rollbackFor = Exception.class)
     public String createExam(CreateExamRequest request) {
 
         Exam createdExam = Exam.builder()
@@ -34,6 +36,7 @@ public class ExamService {
         return createdExam.getId();
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public ExamResult getResult(String id) {
 
         Exam exam = examRepository.findById(id)

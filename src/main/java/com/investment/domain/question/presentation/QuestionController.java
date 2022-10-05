@@ -19,7 +19,7 @@ public class QuestionController {
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    @ApiOperation(value = "질문 조회", notes = "fastapi를 통해 질문을 제공받습니다.")
+    @ApiOperation(value = "질문 조회", notes = "examId를 이용해 질문을 제공받습니다.")
     public BeforeQuestionResponse getQuestion(@RequestParam String id) {
         return questionService.getQuestion(id);
     }

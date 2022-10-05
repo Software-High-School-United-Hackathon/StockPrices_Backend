@@ -10,6 +10,7 @@ import com.investment.domain.question.presentation.dto.request.InsertAnswerReque
 import com.investment.domain.question.presentation.dto.response.BeforeQuestionResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +19,7 @@ public class QuestionService {
     private final QuestionRepository questionRepository;
     private final ExamRepository examRepository;
 
+    @Transactional(rollbackFor = Exception.class)
     public BeforeQuestionResponse getQuestion(String id) {
 
         Exam exam = examRepository.findById(id)
@@ -39,6 +41,7 @@ public class QuestionService {
                 .build();
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public void insertAnswer(InsertAnswerRequest request) {
 
         Question question = questionRepository.findById(request.getId())
