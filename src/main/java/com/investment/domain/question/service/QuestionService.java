@@ -10,11 +10,14 @@ import com.investment.domain.question.exception.QuestionServerException;
 import com.investment.domain.question.presentation.dto.request.InsertAnswerRequest;
 import com.investment.domain.question.presentation.dto.response.BeforeQuestionResponse;
 import com.investment.domain.question.presentation.dto.response.QuestionClientResponse;
+import com.investment.domain.upload.service.UploadService;
+import com.investment.global.libs.MultipartParser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
@@ -23,6 +26,8 @@ public class QuestionService {
 
     private final QuestionRepository questionRepository;
     private final ExamRepository examRepository;
+    private final UploadService uploadService;
+    private final MultipartParser multipartParser;
 
     @Value("${api.question}")
     private String questionApiUrl;
@@ -38,7 +43,7 @@ public class QuestionService {
                 .build();
 
         QuestionClientResponse response = webClient.get()
-                .uri("/question")
+                .uri("/")
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(QuestionClientResponse.class)
@@ -48,11 +53,14 @@ public class QuestionService {
             throw new QuestionServerException();
         }
 
+        MultipartFile file = multipartParser.changeBase64ToMultipartFile(response.getImage());
+        String uploadedImageUrl = uploadService.uploadFile(file);
+
         Question question = Question.builder()
                 .answer(response.getAnswer())
                 .explanation(response.getExplanation())
                 .exam(exam)
-                .image(response.getImage())
+                .image(uploadedImageUrl)
                 .uniqueCode(response.getCode())
                 .build();
 
