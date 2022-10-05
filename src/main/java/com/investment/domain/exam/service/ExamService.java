@@ -2,6 +2,7 @@ package com.investment.domain.exam.service;
 
 import com.investment.domain.exam.domain.entity.Exam;
 import com.investment.domain.exam.domain.repository.ExamRepository;
+import com.investment.domain.exam.domain.type.ExamStatus;
 import com.investment.domain.exam.exception.ExamNotFoundException;
 import com.investment.domain.exam.presentation.dto.request.CreateExamRequest;
 import com.investment.domain.exam.presentation.dto.response.ExamResult;
@@ -64,10 +65,13 @@ public class ExamService {
             );
         }
 
+        exam.modifyStatus(ExamStatus.FINISHED);
+
         return ExamResult.builder()
                 .name(exam.getName())
                 .age(exam.getAge())
                 .createdAt(exam.getCreatedAt())
+                .allQuestionCount(questionList.size())
                 .rightCount(rightCount)
                 .wrongCount(wrongCount)
                 .questions(questionResponses)

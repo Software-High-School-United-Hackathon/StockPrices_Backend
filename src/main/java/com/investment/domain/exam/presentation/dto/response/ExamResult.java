@@ -19,6 +19,7 @@ public class ExamResult {
     private String name;
     private int age;
     private LocalDateTime createdAt;
+    private int allQuestionCount;
     private int rightCount;
     private int wrongCount;
     private List<QuestionResponse> questions;

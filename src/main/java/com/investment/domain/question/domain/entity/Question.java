@@ -5,10 +5,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "question")
@@ -26,17 +24,27 @@ public class Question {
     @Column(nullable = false)
     private String answer;
 
-    @Column(nullable = false)
     private String rightAnswer;
 
     @Column(nullable = false)
     private String explanation;
 
-    @Builder
-    public Question(String answer, String rightAnswer, Exam exam, String explanation) {
-        this.answer = answer;
+    @Column(nullable = false)
+    private String image;
+
+    @Column(nullable = false)
+    private String uniqueCode;
+
+    public void updateAnswer(String rightAnswer) {
         this.rightAnswer = rightAnswer;
+    }
+
+    @Builder
+    public Question(String answer, Exam exam, String explanation, String image, String uniqueCode) {
+        this.answer = answer;
         this.exam = exam;
         this.explanation = explanation;
+        this.image = image;
+        this.uniqueCode = uniqueCode;
     }
 }

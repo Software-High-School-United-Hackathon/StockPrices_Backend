@@ -35,6 +35,10 @@ public class Exam {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    public void modifyStatus(ExamStatus status) {
+        this.status = status;
+    }
+
     @Builder
     public Exam(String name, int age) {
         this.id = UUID.randomUUID().toString();

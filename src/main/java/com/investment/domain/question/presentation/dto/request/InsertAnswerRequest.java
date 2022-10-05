@@ -7,21 +7,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class CreateQuestionRequest {
+public class InsertAnswerRequest {
 
-    @NotEmpty
-    private String examId;
-
-    @NotEmpty
-    private String rightAnswer;
+    @NotNull
+    private long id;
 
     @NotEmpty
     private String answer;
-
-    @NotEmpty
-    private String explanation;
 }
