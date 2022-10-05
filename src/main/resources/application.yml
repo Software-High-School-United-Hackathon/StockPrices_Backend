@@ -16,3 +16,6 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+api:
+  question: http://localhost:3000
