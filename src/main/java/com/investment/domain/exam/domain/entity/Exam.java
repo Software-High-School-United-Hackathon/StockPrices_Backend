@@ -2,11 +2,13 @@ package com.investment.domain.exam.domain.entity;
 
 import com.investment.domain.exam.domain.type.ExamStatus;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.UUID;
 
 @Entity
 @Table(name = "exam")
@@ -14,8 +16,8 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Exam {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Id
+    private String id;
 
     @Column(nullable = false)
     @Size(max = 100)
@@ -28,7 +30,9 @@ public class Exam {
     @Column(nullable = false)
     private ExamStatus status;
 
+    @Builder
     public Exam(String name, int age) {
+        this.id = UUID.randomUUID().toString();
         this.name = name;
         this.age = age;
         this.status = ExamStatus.PENDING;
