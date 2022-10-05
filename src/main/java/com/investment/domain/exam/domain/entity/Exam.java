@@ -5,9 +5,11 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -29,6 +31,9 @@ public class Exam {
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
     private ExamStatus status;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
     @Builder
     public Exam(String name, int age) {

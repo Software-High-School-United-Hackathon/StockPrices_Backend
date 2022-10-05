@@ -14,13 +14,13 @@ public class ExamService {
 
     public String createExam(CreateExamRequest request) {
 
-        Exam exam = Exam.builder()
+        Exam createdExam = Exam.builder()
                 .age(request.getAge())
                 .name(request.getName())
                 .build();
 
-        examRepository.save(exam);
+        examRepository.save(createdExam);
 
-        return exam.getId();
+        return createdExam.getId();
     }
 }
