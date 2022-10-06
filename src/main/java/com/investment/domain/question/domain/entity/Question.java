@@ -22,9 +22,9 @@ public class Question {
     private Exam exam;
 
     @Column(nullable = false)
-    private String answer;
+    private int answer;
 
-    private String rightAnswer;
+    private int rightAnswer;
 
     @Column(nullable = false)
     private String explanation;
@@ -32,15 +32,37 @@ public class Question {
     @Column(nullable = false)
     private String image;
 
+    private int score;
+
     @Column(nullable = false)
     private String uniqueCode;
 
-    public void updateAnswer(String rightAnswer) {
+    public void updateAnswerAndScore(int rightAnswer) {
         this.rightAnswer = rightAnswer;
+        this.score = calculateScore(rightAnswer, this.answer);
+    }
+
+    private int calculateScore(int rightAnswer, int answer) {
+
+        int score = 5;
+        answer /= 2;
+        if (rightAnswer == answer) {
+            score += 5;
+        } else if (rightAnswer + answer == 0) {
+            score -= 5;
+        } else {
+            if (Math.abs(rightAnswer + answer) > 10) {
+                score += 2.5;
+            } else {
+                score -= 2.5;
+            }
+        }
+
+        return score;
     }
 
     @Builder
-    public Question(String answer, Exam exam, String explanation, String image, String uniqueCode) {
+    public Question(int answer, Exam exam, String explanation, String image, String uniqueCode) {
         this.answer = answer;
         this.exam = exam;
         this.explanation = explanation;

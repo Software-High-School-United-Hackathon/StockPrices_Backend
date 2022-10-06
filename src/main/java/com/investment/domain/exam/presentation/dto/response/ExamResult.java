@@ -20,7 +20,6 @@ public class ExamResult {
     private int age;
     private LocalDateTime createdAt;
     private int allQuestionCount;
-    private int rightCount;
-    private int wrongCount;
+    private int score;
     private List<QuestionResponse> questions;
 }

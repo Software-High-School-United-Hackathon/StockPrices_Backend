@@ -45,22 +45,15 @@ public class ExamService {
         List<Question> questionList = questionRepository.findAllByExam(exam);
         List<QuestionResponse> questionResponses = new ArrayList<>();
 
-        int rightCount = 0;
-        int wrongCount = 0;
+        int scoreSum = 0;
 
         for (Question question : questionList) {
-            boolean isCorrect = false;
-            if (question.getAnswer().equals(question.getRightAnswer())) {
-                rightCount++;
-                isCorrect = true;
-            } else {
-                wrongCount++;
-            }
+
+            scoreSum += question.getScore();
 
             questionResponses.add(
                     QuestionResponse.builder()
                             .id(question.getId())
-                            .isCorrect(isCorrect)
                             .answer(question.getAnswer())
                             .rightAnswer(question.getRightAnswer())
                             .explanation(question.getExplanation())
@@ -75,8 +68,7 @@ public class ExamService {
                 .age(exam.getAge())
                 .createdAt(exam.getCreatedAt())
                 .allQuestionCount(questionList.size())
-                .rightCount(rightCount)
-                .wrongCount(wrongCount)
+                .score(scoreSum)
                 .questions(questionResponses)
                 .build();
     }

@@ -6,7 +6,7 @@ import lombok.Data;
 public class QuestionClientResponse {
 
     private String image;
-    private String answer;
+    private int answer;
     private String code;
     private String explanation;
 }

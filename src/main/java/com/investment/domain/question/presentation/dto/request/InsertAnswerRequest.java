@@ -18,5 +18,5 @@ public class InsertAnswerRequest {
     private long id;
 
     @NotEmpty
-    private String answer;
+    private int answer;
 }

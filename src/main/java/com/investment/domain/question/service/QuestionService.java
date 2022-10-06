@@ -78,7 +78,7 @@ public class QuestionService {
         Question question = questionRepository.findById(request.getId())
                         .orElseThrow(QuestionNotFoundException::new);
 
-        question.updateAnswer(request.getAnswer());
+        question.updateAnswerAndScore(request.getAnswer());
 
         questionRepository.save(question);
     }

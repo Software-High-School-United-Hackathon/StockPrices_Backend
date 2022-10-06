@@ -13,8 +13,7 @@ import lombok.Getter;
 public class QuestionResponse {
 
     private long id;
-    private String answer;
-    private String rightAnswer;
+    private int answer;
+    private int rightAnswer;
     private String explanation;
-    private boolean isCorrect;
 }
