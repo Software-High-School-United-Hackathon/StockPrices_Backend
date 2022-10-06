@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
+
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -80,24 +81,7 @@ public class QuestionService {
         LocalDate endDate = LocalDate.parse(questionResponse.getEndDate(), DateTimeFormatter.ISO_DATE);
         String endDateString = Integer.toString(endDate.getYear()) + endDate.getMonthValue() + endDate.getDayOfMonth();
 
-        // 공공 데이터 포털 재무제표 정보 불러오기
-        uriComponents = UriComponentsBuilder
-                .fromHttpUrl(financialApiBaseUrl)
-                .queryParam("serviceKey", financialApiKey)
-                .queryParam("resultType", "json")
-                .queryParam("itmsNm", questionResponse.getStock())
-                .queryParam("basDt", endDateString)
-                .queryParam("numOfRows", "1")
-                .queryParam("pageNo", "1")
-                .build();
-
-        ResponseEntity<FinancialServerResponse> financialResponseEntity = template.exchange(
-                uriComponents.toUriString(),
-                HttpMethod.GET,
-                new HttpEntity<>(headers),
-                FinancialServerResponse.class);
-
-        FinancialServerResponse financialResponse = financialResponseEntity.getBody();
+        FinancialServerResponse financialResponse = new FinancialServerResponse(6010, 5850, 5860, 520960000, 240448700, 4055812, 110);
 
         FinanceInfo createdFinanceInfo = FinanceInfo.builder()
                 .lopr(financialResponse.getLopr())
@@ -162,6 +146,7 @@ public class QuestionService {
                 .rightAnswer(question.getRightAnswer())
                 .news(question.getNews())
                 .stock(question.getName())
+                .financeInfo(question.getFinanceInfo())
                 .build();
     }
 
@@ -185,6 +170,7 @@ public class QuestionService {
                                 .answer(question.getAnswer())
                                 .rightAnswer(question.getRightAnswer())
                                 .stock(question.getName())
+                                .financeInfo(question.getFinanceInfo())
                                 .build()
                 );
             }
