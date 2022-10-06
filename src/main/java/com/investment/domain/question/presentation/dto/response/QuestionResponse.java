@@ -2,6 +2,7 @@ package com.investment.domain.question.presentation.dto.response;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.investment.domain.news.domain.entity.News;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,4 +17,5 @@ public class QuestionResponse {
     private int answer;
     private int rightAnswer;
     private String explanation;
+    private News news;
 }

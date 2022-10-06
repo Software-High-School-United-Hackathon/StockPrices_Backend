@@ -26,7 +26,7 @@ public class QuestionController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    @ApiOperation(value = "질문/응답 생성", notes = "질문과 그에 대한 답변을 생성합니다.")
+    @ApiOperation(value = "질문 응답", notes = "질문에 대한 답변을 생성합니다.")
     public void createQuestion(@RequestBody @Valid InsertAnswerRequest request) {
         questionService.insertAnswer(request);
     }

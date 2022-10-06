@@ -1,6 +1,7 @@
 package com.investment.domain.question.domain.entity;
 
 import com.investment.domain.exam.domain.entity.Exam;
+import com.investment.domain.news.domain.entity.News;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,7 +19,7 @@ public class Question {
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_exam_id")
+    @JoinColumn(name = "fk_exam_id", nullable = false)
     private Exam exam;
 
     @Column(nullable = false)
@@ -36,6 +37,10 @@ public class Question {
 
     @Column(nullable = false)
     private String uniqueCode;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "fk_news_id", nullable = false)
+    private News news;
 
     public void updateAnswerAndScore(int rightAnswer) {
         this.rightAnswer = rightAnswer;
@@ -62,11 +67,12 @@ public class Question {
     }
 
     @Builder
-    public Question(int answer, Exam exam, String explanation, String image, String uniqueCode) {
+    public Question(int answer, Exam exam, String explanation, String image, String uniqueCode, News news) {
         this.answer = answer;
         this.exam = exam;
         this.explanation = explanation;
         this.image = image;
         this.uniqueCode = uniqueCode;
+        this.news = news;
     }
 }
