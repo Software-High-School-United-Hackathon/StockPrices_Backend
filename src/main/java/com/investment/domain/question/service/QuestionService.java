@@ -9,11 +9,12 @@ import com.investment.domain.question.exception.QuestionNotFoundException;
 import com.investment.domain.question.exception.QuestionServerException;
 import com.investment.domain.question.presentation.dto.request.InsertAnswerRequest;
 import com.investment.domain.question.presentation.dto.response.BeforeQuestionResponse;
-import com.investment.domain.question.presentation.dto.response.QuestionClientResponse;
+import com.investment.domain.question.presentation.dto.response.QuestionServerResponse;
 import com.investment.domain.upload.service.UploadService;
 import com.investment.global.libs.MultipartParser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,11 +43,14 @@ public class QuestionService {
                 .baseUrl(questionApiUrl)
                 .build();
 
-        QuestionClientResponse response = webClient.get()
+        QuestionServerResponse response = webClient.get()
                 .uri("/")
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToFlux(QuestionClientResponse.class)
+                .onStatus(HttpStatus::isError, clientResponse -> {
+                    throw new QuestionServerException();
+                })
+                .bodyToFlux(QuestionServerResponse.class)
                 .toStream()
                 .findFirst()
                 .orElseThrow(QuestionServerException::new);
