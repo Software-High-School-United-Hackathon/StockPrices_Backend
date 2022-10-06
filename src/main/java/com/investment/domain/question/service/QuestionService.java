@@ -12,7 +12,6 @@ import com.investment.domain.question.exception.QuestionServerException;
 import com.investment.domain.question.presentation.dto.request.InsertAnswerRequest;
 import com.investment.domain.question.presentation.dto.response.BeforeQuestionResponse;
 import com.investment.domain.question.presentation.dto.response.QuestionServerResponse;
-import com.investment.domain.upload.service.UploadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -31,7 +30,6 @@ public class QuestionService {
     private final QuestionRepository questionRepository;
     private final ExamRepository examRepository;
     private final NewsRepository newsRepository;
-    private final UploadService uploadService;
 
     @Value("${api.question}")
     private String questionApiBaseUrl;
@@ -52,7 +50,7 @@ public class QuestionService {
 
         RestTemplate template = new RestTemplate(factory);
 
-        ResponseEntity<QuestionServerResponse> responseEntity= template.exchange(
+        ResponseEntity<QuestionServerResponse> responseEntity = template.exchange(
                 uriComponents.toUriString(),
                 HttpMethod.GET,
                 new HttpEntity<>(headers),

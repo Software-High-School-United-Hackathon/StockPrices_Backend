@@ -32,11 +32,22 @@ public class Exam {
     @Column(nullable = false)
     private ExamStatus status;
 
+    @Column(nullable = false)
+    private String tendency;
+
+    @Column(nullable = false)
+    private String tendencyExplanation;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 
     public void modifyStatus(ExamStatus status) {
         this.status = status;
+    }
+
+    public void addTendency(String tendency, String tendencyExplanation) {
+        this.tendency = tendency;
+        this.tendencyExplanation = tendencyExplanation;
     }
 
     @Builder

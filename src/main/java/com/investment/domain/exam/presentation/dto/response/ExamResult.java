@@ -21,5 +21,7 @@ public class ExamResult {
     private LocalDateTime createdAt;
     private int allQuestionCount;
     private int score;
+    private String tendency;
+    private String tendencyExplanation;
     private List<QuestionResponse> questions;
 }
