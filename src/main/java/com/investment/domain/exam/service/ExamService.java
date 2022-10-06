@@ -119,23 +119,18 @@ public class ExamService {
         exam.addTendency(response.getTendency(), response.getTendencyExplanation());
         examRepository.save(exam);
 
-        int tendencyType = 1;
-        switch (response.getTendency()) {
-            case "안전형":
-                tendencyType = 1;
-                break;
-            case "안전추구형":
-                tendencyType = 2;
-                break;
-            case "위험중립형":
-                tendencyType = 3;
-                break;
-            case "적극투자형":
-                tendencyType = 4;
-                break;
-            case "공격투자형":
-                tendencyType = 5;
-                break;
+        int tendencyType = 0;
+
+        if (response.getTendency().equals("안전형")) {
+            tendencyType = 1;
+        } else if (response.getTendency().equals("안전추구형")) {
+            tendencyType = 2;
+        } else if (response.getTendency().equals("위험중립형")) {
+            tendencyType = 3;
+        } else if (response.getTendency().equals("적극투자형")) {
+            tendencyType = 4;
+        } else {
+            tendencyType = 5;
         }
 
         return ExamResult.builder()
