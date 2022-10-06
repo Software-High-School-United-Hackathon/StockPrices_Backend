@@ -70,6 +70,8 @@ public class ExamService {
                             .rightAnswer(question.getRightAnswer())
                             .explanation(question.getExplanation())
                             .score(question.getScore())
+                            .stock(question.getName())
+                            .news(question.getNews())
                             .build()
             );
         }

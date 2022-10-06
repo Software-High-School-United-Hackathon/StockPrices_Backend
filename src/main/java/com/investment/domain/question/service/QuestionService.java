@@ -87,6 +87,8 @@ public class QuestionService {
                 .queryParam("resultType", "json")
                 .queryParam("itmsNm", questionResponse.getStock())
                 .queryParam("basDt", endDateString)
+                .queryParam("numOfRows", "1")
+                .queryParam("pageNo", "1")
                 .build();
 
         ResponseEntity<FinancialServerResponse> financialResponseEntity = template.exchange(
@@ -98,7 +100,6 @@ public class QuestionService {
         FinancialServerResponse financialResponse = financialResponseEntity.getBody();
 
         FinanceInfo createdFinanceInfo = FinanceInfo.builder()
-                .hipr(financialResponse.getHipr())
                 .lopr(financialResponse.getLopr())
                 .dpr(financialResponse.getDpr())
                 .mrktTotAmt(financialResponse.getMrktTotAmt())
@@ -124,6 +125,7 @@ public class QuestionService {
                 .uniqueCode(questionResponse.getCode())
                 .news(createdNews)
                 .financeInfo(createdFinanceInfo)
+                .name(questionResponse.getStock())
                 .build();
         questionRepository.save(createdQuestion);
 
@@ -132,6 +134,7 @@ public class QuestionService {
                 .image(createdQuestion.getImage())
                 .news(createdNews)
                 .financeInfo(createdFinanceInfo)
+                .stock(questionResponse.getStock())
                 .build();
     }
 
@@ -158,6 +161,7 @@ public class QuestionService {
                 .answer(question.getAnswer())
                 .rightAnswer(question.getRightAnswer())
                 .news(question.getNews())
+                .stock(question.getName())
                 .build();
     }
 
@@ -180,6 +184,7 @@ public class QuestionService {
                                 .explanation(question.getExplanation())
                                 .answer(question.getAnswer())
                                 .rightAnswer(question.getRightAnswer())
+                                .stock(question.getName())
                                 .build()
                 );
             }

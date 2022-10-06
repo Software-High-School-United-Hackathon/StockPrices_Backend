@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "question")
@@ -19,6 +18,9 @@ public class Question {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(nullable = false)
+    private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_exam_id", nullable = false)
@@ -73,7 +75,8 @@ public class Question {
     }
 
     @Builder
-    public Question(int answer, Exam exam, String explanation, String image, String uniqueCode, News news, FinanceInfo financeInfo) {
+    public Question(String name, int answer, Exam exam, String explanation, String image, String uniqueCode, News news, FinanceInfo financeInfo) {
+        this.name = name;
         this.answer = answer;
         this.exam = exam;
         this.explanation = explanation;

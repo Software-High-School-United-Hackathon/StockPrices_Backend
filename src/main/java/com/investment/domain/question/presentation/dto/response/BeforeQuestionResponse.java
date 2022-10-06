@@ -18,4 +18,5 @@ public class BeforeQuestionResponse {
     private String image;
     private News news;
     private FinanceInfo financeInfo;
+    private String stock;
 }

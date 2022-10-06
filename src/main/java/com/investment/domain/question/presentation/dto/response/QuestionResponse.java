@@ -20,4 +20,5 @@ public class QuestionResponse {
     private News news;
     private int score;
     private String endDate;
+    private String stock;
 }
