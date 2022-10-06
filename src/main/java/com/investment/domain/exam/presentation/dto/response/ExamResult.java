@@ -25,5 +25,6 @@ public class ExamResult {
     private int score;
     private String tendency;
     private String tendencyExplanation;
+    private int tendencyType;
     private List<QuestionResponse> questions;
 }
