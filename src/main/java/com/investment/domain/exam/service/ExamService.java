@@ -69,6 +69,7 @@ public class ExamService {
                             .answer(question.getAnswer())
                             .rightAnswer(question.getRightAnswer())
                             .explanation(question.getExplanation())
+                            .score(question.getScore())
                             .build()
             );
         }

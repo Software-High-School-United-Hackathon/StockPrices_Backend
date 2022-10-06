@@ -18,4 +18,5 @@ public class QuestionResponse {
     private int rightAnswer;
     private String explanation;
     private News news;
+    private int score;
 }

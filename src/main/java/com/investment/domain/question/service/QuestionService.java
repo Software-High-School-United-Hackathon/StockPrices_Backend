@@ -11,6 +11,7 @@ import com.investment.domain.question.exception.QuestionNotFoundException;
 import com.investment.domain.question.exception.QuestionServerException;
 import com.investment.domain.question.presentation.dto.request.InsertAnswerRequest;
 import com.investment.domain.question.presentation.dto.response.BeforeQuestionResponse;
+import com.investment.domain.question.presentation.dto.response.QuestionResponse;
 import com.investment.domain.question.presentation.dto.response.QuestionServerResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +23,8 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -95,5 +98,47 @@ public class QuestionService {
         question.updateAnswerAndScore(request.getAnswer());
 
         questionRepository.save(question);
+    }
+
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
+    public QuestionResponse getQuestionById(long id) {
+
+        Question question = questionRepository.findById(id)
+                .orElseThrow(QuestionNotFoundException::new);
+        return QuestionResponse.builder()
+                .id(question.getId())
+                .score(question.getScore())
+                .explanation(question.getExplanation())
+                .answer(question.getAnswer())
+                .rightAnswer(question.getRightAnswer())
+                .news(question.getNews())
+                .build();
+    }
+
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
+    public List<QuestionResponse> getWrongQuestions(String examId) {
+
+        Exam exam = examRepository.findById(examId)
+                .orElseThrow(ExamNotFoundException::new);
+
+        List<Question> questionList = questionRepository.findAllByExam(exam);
+        List<QuestionResponse> wrongQuestionList = new ArrayList<>();
+
+        for (Question question : questionList) {
+            if (question.getScore() < 5) {
+                wrongQuestionList.add(
+                        QuestionResponse.builder()
+                                .id(question.getId())
+                                .score(question.getScore())
+                                .news(question.getNews())
+                                .explanation(question.getExplanation())
+                                .answer(question.getAnswer())
+                                .rightAnswer(question.getRightAnswer())
+                                .build()
+                );
+            }
+        }
+
+        return wrongQuestionList;
     }
 }
