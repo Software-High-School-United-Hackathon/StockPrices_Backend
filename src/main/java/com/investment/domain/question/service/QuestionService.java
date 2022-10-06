@@ -62,26 +62,27 @@ public class QuestionService {
 
         QuestionServerResponse response = responseEntity.getBody();
 
-        News news = News.builder()
+        News createdNews = News.builder()
                 .title(response.getNewsTitle())
                 .article(response.getNewsArticle())
                 .image(response.getNewsImgUrl())
                 .build();
-        newsRepository.save(news);
+        newsRepository.save(createdNews);
 
-        Question question = Question.builder()
+        Question createdQuestion = Question.builder()
                 .answer(response.getAnswer())
                 .explanation(response.getExplanation())
                 .exam(exam)
                 .image(response.getImage())
                 .uniqueCode(response.getCode())
-                .news(news)
+                .news(createdNews)
                 .build();
+        questionRepository.save(createdQuestion);
 
         return BeforeQuestionResponse.builder()
-                .id(question.getId())
-                .image(question.getImage())
-                .news(news)
+                .id(createdQuestion.getId())
+                .image(createdQuestion.getImage())
+                .news(createdNews)
                 .build();
     }
 
