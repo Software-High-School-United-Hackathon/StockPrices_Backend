@@ -1,11 +1,8 @@
 package com.investment.domain.question.presentation.dto.response;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Data;
 
-@Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Data
 public class QuestionClientResponse {
 
     private String image;

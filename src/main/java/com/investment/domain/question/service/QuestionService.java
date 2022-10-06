@@ -46,8 +46,10 @@ public class QuestionService {
                 .uri("/")
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToMono(QuestionClientResponse.class)
-                .block();
+                .bodyToFlux(QuestionClientResponse.class)
+                .toStream()
+                .findFirst()
+                .orElseThrow(QuestionServerException::new);
 
         if (response == null) {
             throw new QuestionServerException();
