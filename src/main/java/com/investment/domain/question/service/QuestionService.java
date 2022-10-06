@@ -13,7 +13,6 @@ import com.investment.domain.question.presentation.dto.request.InsertAnswerReque
 import com.investment.domain.question.presentation.dto.response.BeforeQuestionResponse;
 import com.investment.domain.question.presentation.dto.response.QuestionServerResponse;
 import com.investment.domain.upload.service.UploadService;
-import com.investment.global.libs.MultipartParser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -21,7 +20,6 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import java.nio.charset.StandardCharsets;
@@ -34,7 +32,6 @@ public class QuestionService {
     private final ExamRepository examRepository;
     private final NewsRepository newsRepository;
     private final UploadService uploadService;
-    private final MultipartParser multipartParser;
 
     @Value("${api.question}")
     private String questionApiBaseUrl;
@@ -67,9 +64,6 @@ public class QuestionService {
 
         QuestionServerResponse response = responseEntity.getBody();
 
-        MultipartFile file = multipartParser.changeBase64ToMultipartFile(response.getImage());
-        String uploadedImageUrl = uploadService.uploadFile(file);
-
         News news = News.builder()
                 .title(response.getNewsTitle())
                 .article(response.getNewsArticle())
@@ -81,7 +75,7 @@ public class QuestionService {
                 .answer(response.getAnswer())
                 .explanation(response.getExplanation())
                 .exam(exam)
-                .image(uploadedImageUrl)
+                .image(response.getImage())
                 .uniqueCode(response.getCode())
                 .news(news)
                 .build();
