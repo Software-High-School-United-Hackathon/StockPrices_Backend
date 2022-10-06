@@ -1,5 +1,6 @@
 package com.investment.domain.finance.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,6 +40,7 @@ public class FinanceInfo {
     private int vs; // 전일 대비 등락
 
     @Column(nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate endDate;
 
     @Builder
