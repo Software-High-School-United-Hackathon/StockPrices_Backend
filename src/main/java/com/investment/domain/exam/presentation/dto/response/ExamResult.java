@@ -23,6 +23,7 @@ public class ExamResult {
     private LocalDateTime createdAt;
     private int allQuestionCount;
     private int score;
+    private int wrongSum;
     private String tendency;
     private String tendencyExplanation;
     private int tendencyType;

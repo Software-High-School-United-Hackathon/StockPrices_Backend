@@ -58,10 +58,14 @@ public class ExamService {
         List<QuestionResponse> questionResponses = new ArrayList<>();
 
         int scoreSum = 0;
+        int wrongSum = 0;
 
         for (Question question : questionList) {
 
             scoreSum += question.getScore();
+            if(question.getScore() < 5) {
+                wrongSum++;
+            }
 
             questionResponses.add(
                     QuestionResponse.builder()
@@ -144,6 +148,7 @@ public class ExamService {
                 .tendency(response.getTendency())
                 .tendencyExplanation(response.getTendencyExplanation())
                 .tendencyType(tendencyType)
+                .wrongSum(wrongSum)
                 .build();
     }
 }
