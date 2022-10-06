@@ -16,4 +16,5 @@ public class QuestionServerResponse {
     private String newsTitle;
     private String newsImgUrl;
     private String newsArticle;
+    private String endDate;
 }

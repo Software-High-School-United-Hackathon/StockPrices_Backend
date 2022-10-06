@@ -1,6 +1,7 @@
 package com.investment.domain.question.domain.entity;
 
 import com.investment.domain.exam.domain.entity.Exam;
+import com.investment.domain.finance.domain.entity.FinanceInfo;
 import com.investment.domain.news.domain.entity.News;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -8,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "question")
@@ -42,6 +44,10 @@ public class Question {
     @JoinColumn(name = "fk_news_id", nullable = false)
     private News news;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "fk_finance_info_id", nullable = false)
+    private FinanceInfo financeInfo;
+
     public void updateAnswerAndScore(int rightAnswer) {
         this.rightAnswer = rightAnswer;
         this.score = calculateScore(rightAnswer, this.answer);
@@ -67,12 +73,13 @@ public class Question {
     }
 
     @Builder
-    public Question(int answer, Exam exam, String explanation, String image, String uniqueCode, News news) {
+    public Question(int answer, Exam exam, String explanation, String image, String uniqueCode, News news, FinanceInfo financeInfo) {
         this.answer = answer;
         this.exam = exam;
         this.explanation = explanation;
         this.image = image;
         this.uniqueCode = uniqueCode;
         this.news = news;
+        this.financeInfo = financeInfo;
     }
 }
