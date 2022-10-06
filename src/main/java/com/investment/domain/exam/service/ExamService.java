@@ -81,7 +81,7 @@ public class ExamService {
         }
 
         UriComponents uriComponents = UriComponentsBuilder
-                .fromHttpUrl(questionApiBaseUrl)
+                .fromHttpUrl(questionApiBaseUrl + "/test")
                 .queryParam("s0", questionList.get(0).getScore())
                 .queryParam("s1", questionList.get(1).getScore())
                 .queryParam("s2", questionList.get(2).getScore())
@@ -104,7 +104,7 @@ public class ExamService {
         RestTemplate template = new RestTemplate(factory);
 
         ResponseEntity<QuestionResultServerResponse> responseEntity = template.exchange(
-                uriComponents.toUriString() + "/test",
+                uriComponents.toUriString(),
                 HttpMethod.GET,
                 new HttpEntity<>(headers),
                 QuestionResultServerResponse.class);
