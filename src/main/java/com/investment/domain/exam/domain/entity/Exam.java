@@ -32,10 +32,8 @@ public class Exam {
     @Column(nullable = false)
     private ExamStatus status;
 
-    @Column(nullable = false)
     private String tendency;
 
-    @Column(nullable = false)
     private String tendencyExplanation;
 
     @CreationTimestamp
